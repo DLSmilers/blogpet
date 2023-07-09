@@ -3,7 +3,7 @@
 <head>
   <title>Tela de Login na Petlândia</title>
   <style>
-   body {
+    body {
       font-family: Arial, sans-serif;
       background-color: #f7f7f7;
       margin: 0;
@@ -48,16 +48,19 @@
     }
   </style>
   <script>
-    function realizarLogin() {
+    function realizarLogin(event) {
+      event.preventDefault(); // Impede o envio padrão do formulário
+
       var email = document.getElementById('email').value;
       var senha = document.getElementById('senha').value;
 
       // Obter os dados do usuário do localStorage
-      var usuario = JSON.parse(localStorage.getItem('usuario'));
+      var email_storage = localStorage.getItem('email');
+      var senha_storage = localStorage.getItem('senha');
 
-      if (usuario && usuario.email === email && usuario.senha === senha) {
+      if (email_storage === email && senha_storage === senha) {
         alert('Login realizado com sucesso!');
-        // Redirecionar para a tela do blog ou realizar outras ações
+        window.location.href = 'blog.html'; // Redireciona apenas se o login for bem-sucedido
       } else {
         alert('Email ou senha inválidos!');
       }
@@ -67,15 +70,15 @@
 <body>
   <div class="container">
     <h2>Login</h2>
-    <form>
+    <form onsubmit="realizarLogin(event)"> <!-- Adiciona o evento onsubmit e passa o parâmetro event -->
       <label for="username">Usuário:</label>
-      <input type="text" id="username" name="username" required><br>
+      <input type="text" id="email" placeholder="Email"><br>
       <label for="password">Senha:</label>
-      <input type="password" id="password" name="password" required><br>
+      <input type="password" id="senha" placeholder="Senha" required><br>
       <button type="submit">Entrar</button>
-      <a href = cadastro.html>Cadastre-se</a>
+
+      <a href="cadastro.html">Cadastre-se</a>
     </form>
   </div>
 </body>
 </html>
-<!DOCTYPE html>
